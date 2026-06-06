@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Register | EYEConic 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Register for EYEConic 2026 — Annual EyecareFest, 26 July 2026, Fairfield by Marriott, New Town, Kolkata.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="nav-placeholder"></div>
+
+  <!-- PAGE BANNER -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Conference Registration</h1>
+      <div class="divider"></div>
+      <p>Secure your spot at EYEConic 2026</p>
+    </div>
+  </section>
+
+  <!-- REGISTRATION FORM SECTION -->
+  <section class="section">
+    <div class="container">
+
+      <!-- REGISTRATION FORM -->
+      <div class="register-card animate-on-scroll" id="register-form">
+        <h3 class="text-center">Delegate Registration Form</h3>
+        <p class="form-desc text-center">Please fill in your details to complete registration.</p>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="reg-name">Full Name *</label>
+            <input id="reg-name" class="form-control" placeholder="Dr. Full Name" required>
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="reg-email">Email Address *</label>
+            <input id="reg-email" type="email" class="form-control" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-phone">Phone Number *</label>
+            <input id="reg-phone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="reg-institution">Institution / Hospital *</label>
+            <input id="reg-institution" class="form-control" placeholder="Hospital / Institution name" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-city">City *</label>
+            <input id="reg-city" class="form-control" placeholder="City" required>
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="reg-designation">Designation *</label>
+            <input id="reg-designation" class="form-control" placeholder="Your designation" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-password">Create Password *</label>
+            <input id="reg-password" type="password" class="form-control" placeholder="Min 6 characters" required>
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <div class="form-group">
+          <label for="reg-delegate-type">Delegate Category *</label>
+          <select id="reg-delegate-type" class="form-select">
+            <option value="">— Select Category —</option>
+            <option value="Ophthalmologist">Ophthalmologist</option>
+            <option value="Optometrist">Optometrist</option>
+            <option value="Resident / Trainee">Resident / Trainee</option>
+            <option value="Allied Eye Care Professional">Allied Eye Care Professional</option>
+            <option value="Faculty">Faculty</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-food">Food Preference *</label>
+          <select id="reg-food" class="form-select">
+            <option value="">— Select —</option>
+            <option value="Veg">Vegetarian</option>
+            <option value="Non-Veg">Non-Vegetarian</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary w-100" id="reg-submit-btn" onclick="submitRegistration()"
+          style="padding:18px;width:100%;margin-top:1.5rem;">
+          Register
+        </button>
+
+        <p class="text-center" style="margin-top:20px;font-size:0.9rem;color:var(--color-text-muted);">
+          Already registered? <a href="login.html" style="color:var(--color-primary);text-decoration:underline;">Login
+            here</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .form-group-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .form-group-row .form-group {
+      flex: 1;
+    }
+
+    .form-divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: 25px 0;
+    }
+
+    .register-card {
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    @media(max-width:768px) {
+      .form-group-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+
+  <div id="footer-placeholder"></div>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+  <script src="script.js"></script>
+</body>
+
+</html>

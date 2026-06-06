@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | EYEConic 2026</title>
+  <meta name="description" content="Login to your EYEConic 2026 delegate dashboard to view registration details and upload abstracts.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <section class="page-header">
+    <div class="container">
+      <h1>Delegate Login</h1>
+      <div class="divider"></div>
+      <p>Access your EYEConic 2026 registration dashboard</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="align-items:start;gap:3rem;">
+
+        <!-- Left: Info -->
+        <div class="animate-on-scroll">
+          <h2 style="color:var(--color-primary);margin-bottom:1.5rem;">Abstract Submission — EYEConic 2026</h2>
+          <div style="font-size:1.05rem;line-height:1.7;color:var(--color-text);margin-bottom:2rem;">
+            <p style="margin-bottom:1rem;"><strong>EYEConic 2026</strong> invites abstract submissions for Oral Presentations from ophthalmologists, optometrists, residents, and allied eye care professionals.</p>
+            <p style="margin-bottom:1rem;">The Oral Presentation session is designed to provide a scientific platform for presenting original research, case reports, case series, and clinically relevant academic work related to ophthalmology and eye care.</p>
+            <p style="margin-bottom:1.5rem;">All submitted abstracts will undergo review by the Scientific Committee. Selected abstracts will be presented during EYEConic 2026.</p>
+            <p style="font-weight:600;color:var(--color-primary);margin-bottom:1rem;">For details, contact us:</p>
+            <a href="mailto:eyeconicbysunetra@gmail.com" class="btn btn-outline" style="padding:12px 24px;display:inline-flex;align-items:center;gap:8px;">
+              📧 eyeconicbysunetra@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Login Box -->
+        <div class="animate-on-scroll">
+          <div class="card card-premium" style="padding:2.5rem;max-width:450px;margin:0 auto;">
+            <h3 style="text-align:center;margin-bottom:1.5rem;">Delegate Login</h3>
+
+            <div class="form-group" style="margin-bottom:1.2rem;">
+              <label for="login-email" style="display:block;margin-bottom:6px;font-weight:600;font-size:0.9rem;">Email Address</label>
+              <input type="email" id="login-email" class="form-control" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-group" style="margin-bottom:1.5rem;">
+              <label for="login-password" style="display:block;margin-bottom:6px;font-weight:600;font-size:0.9rem;">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="Your password" required>
+            </div>
+
+            <button id="login-btn" class="btn btn-primary" style="width:100%;padding:14px;" onclick="loginUser()">Login</button>
+
+            <p style="text-align:center;margin-top:1.5rem;font-size:0.9rem;color:var(--color-text-muted);">
+              Don't have an account? <a href="register.html" style="color:var(--color-primary);text-decoration:underline;font-weight:600;">Register here</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+  <script src="script.js"></script>
+</body>
+</html>
