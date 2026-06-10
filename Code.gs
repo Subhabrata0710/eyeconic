@@ -4,11 +4,11 @@
 // ============================================================
 
 // --- CONFIGURATION ---
-const SHEET_ID = '11g3w5c9WlFiyQNB2mHHxMDTyhvVJ9pQyqp_n_S48J7U';
-const UPLOAD_FOLDER_ID = '1mG7hBhJD0O1mdJtJy5fXyP9jyw4SC1-L';
+const SHEET_ID = '1GO4uHOF83s9Xl2TWVgAH-eIbpd3_szKSfMKO8DpN3rM';
+const UPLOAD_FOLDER_ID = '10ESFFQmWYoQYBmvN2eqWvHTrMfUBsuh8';
 
 const EMAIL_FROM_NAME = 'EYEConic 2026 — Annual EyecareFest';
-const EMAIL_CC = 'eyeconicbysunetra@gmail.com';  // CC email
+const EMAIL_CC = 'eyeconicbysunetra@gmail.com, mukherjeerohit301@gmail.com';  // CC email
 
 // ============================================================
 // HANDLE INCOMING REQUESTS
@@ -148,7 +148,7 @@ function registerUser(data) {
 // SEND CONFIRMATION EMAIL
 // ============================================================
 function sendConfirmationEmail(data, serialNumber, savedQrUrl, qrBlob) {
-  var subject = 'Registration Confirmation — EYEConic 2026 [' + serialNumber + ']';
+  var subject = 'Registration Confirmation — EYEConic Annual EyecareFest 2026 [' + serialNumber + ']';
   var inlineBlob = null, attachBlob = null, hasQr = false;
 
   if (qrBlob) {
@@ -162,18 +162,18 @@ function sendConfirmationEmail(data, serialNumber, savedQrUrl, qrBlob) {
   var plainBody =
     'Dear ' + data.name + ',\n\n' +
     'Thank you for registering for EYEConic 2026 — Annual EyecareFest!\n\n' +
-    'Your registration has been confirmed. Details:\n' +
-    '─────────────────────────────────\n' +
+    'We are pleased to confirm your registration.\n' +
+    //'─────────────────────────────────\n' +
     'Registration ID : ' + serialNumber + '\n' +
-    'Category        : ' + (data.regType || data.delegateType || '') + '\n' +
-    '─────────────────────────────────\n\n' +
-    (hasQr ? 'Your event QR Code (Reg ID only) is attached. Please present it at the venue.\n\n' : '') +
+    //'Category        : ' + (data.regType || data.delegateType || '') + '\n' +
+    //'─────────────────────────────────\n\n' +
+    (hasQr ? 'Kindly present the attached QR code at the registration desk upon arrival at the venue.\n\n' : '') +
     'Event Details:\n' +
-    'Conference : Sunday, 26 July 2026\n' +
-    'Venue      : Ozone Convention Centre, Fairfield by Marriott, New Town, Kolkata\n' +
-    'Website    : www.eyeconic.com\n\n' +
-    'We look forward to welcoming you!\n\n' +
-    'Best regards,\n' +
+    'Date : Sunday, 26 July 2026\n' +
+    'Venue      : Fairfield by Marriott, New Town, Kolkata\n' +
+    //'Website    : www.eyeconic.com\n\n' +
+    'We look forward to welcoming you and making this event a memorable experience.\n\n' +
+    'Warm regards,\n' +
     'Organizing Committee\n' +
     'EYEConic 2026 — Annual EyecareFest\n' +
     'Email: eyeconicbysunetra@gmail.com';
