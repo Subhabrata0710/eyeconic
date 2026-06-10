@@ -175,23 +175,17 @@
     const name = document.getElementById('reg-name').value.trim();
     const email = document.getElementById('reg-email').value.trim();
     const phone = document.getElementById('reg-phone').value.trim();
-    const institution = document.getElementById('reg-institution').value.trim();
-    const city = document.getElementById('reg-city').value.trim();
-    const designation = document.getElementById('reg-designation').value.trim();
-    const pass = document.getElementById('reg-password').value.trim();
-    const food = document.getElementById('reg-food').value;
-    const category = document.getElementById('reg-delegate-type').value;
+    const institution = document.getElementById('reg-institution') ? (document.getElementById('reg-institution').value.trim() || 'N/A') : 'N/A';
+    const city = document.getElementById('reg-city') ? document.getElementById('reg-city').value.trim() : '';
+    const designation = document.getElementById('reg-designation') ? (document.getElementById('reg-designation').value.trim() || 'Delegate') : 'Delegate';
+    const pass = document.getElementById('reg-password') ? (document.getElementById('reg-password').value.trim() || 'eyeconic2026') : 'eyeconic2026';
+    const food = document.getElementById('reg-food') ? (document.getElementById('reg-food').value || 'Veg') : 'Veg';
+    const category = document.getElementById('reg-delegate-type') ? (document.getElementById('reg-delegate-type').value || 'Ophthalmologist') : 'Ophthalmologist';
 
-    if (!name || !email || !phone || !institution || !city || !designation || !pass) {
+    if (!name || !email || !phone) {
       return showToast('Please fill all required fields.', 'error');
     }
-    if (!category) {
-      return showToast('Please select a delegate category.', 'error');
-    }
-    if (!food) {
-      return showToast('Please select food preference.', 'error');
-    }
-    if (pass.length < 6) {
+    if (pass && pass.length < 6) {
       return showToast('Password must be at least 6 characters.', 'error');
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -210,12 +204,12 @@
       name: document.getElementById('reg-name').value.trim(),
       email: document.getElementById('reg-email').value.trim(),
       phone: document.getElementById('reg-phone').value.trim(),
-      institution: document.getElementById('reg-institution').value.trim(),
-      city: document.getElementById('reg-city').value.trim(),
-      designation: document.getElementById('reg-designation').value.trim(),
-      password: document.getElementById('reg-password').value.trim(),
-      delegateType: document.getElementById('reg-delegate-type').value,
-      foodPreference: document.getElementById('reg-food').value,
+      institution: document.getElementById('reg-institution') ? (document.getElementById('reg-institution').value.trim() || 'N/A') : 'N/A',
+      city: document.getElementById('reg-city') ? document.getElementById('reg-city').value.trim() : '',
+      designation: document.getElementById('reg-designation') ? (document.getElementById('reg-designation').value.trim() || 'Delegate') : 'Delegate',
+      password: document.getElementById('reg-password') ? (document.getElementById('reg-password').value.trim() || 'eyeconic2026') : 'eyeconic2026',
+      delegateType: document.getElementById('reg-delegate-type') ? (document.getElementById('reg-delegate-type').value || 'Ophthalmologist') : 'Ophthalmologist',
+      foodPreference: document.getElementById('reg-food') ? (document.getElementById('reg-food').value || 'Veg') : 'Veg',
       hasGala: false,
       regType: regType,
       amount: 0,
