@@ -1083,7 +1083,7 @@ select.form-control,
 }
 
 .footer-copyright a:hover {
-  color: var(--color-accent);
+  color: var(--color-white);
 }
 
 /* COMMITTEE HI-CARDS */
