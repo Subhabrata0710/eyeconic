@@ -1,5 +1,5 @@
 /* ============================================================
-   EYEConic 2026 — Shared JavaScript
+   EYECOnic 2026 — Shared JavaScript
    Navigation, animations, registration (direct), login, dashboard
    ============================================================ */
 
@@ -8,7 +8,7 @@
 
   // ---- Configuration ----
   const CONFIG = {
-    API_URL: 'https://script.google.com/macros/s/AKfycby9oJakpKU62ZPIrYaRH_y-NL36fQe9r-SSAqAqwIuc3PWTU6f0_7hAh50ikzSxtVYlAg/exec',   // EYEConic Apps Script URL
+    API_URL: 'https://script.google.com/macros/s/AKfycby9oJakpKU62ZPIrYaRH_y-NL36fQe9r-SSAqAqwIuc3PWTU6f0_7hAh50ikzSxtVYlAg/exec',   // EYECOnic Apps Script URL
     ANIMATION_THRESHOLD: 0.15,
     TOAST_DURATION: 4000,
     LOADER_DELAY: 600

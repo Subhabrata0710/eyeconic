@@ -1,5 +1,5 @@
 // ============================================================
-// EYEConic 2026 — Registration Backend
+// EYECOnic 2026 — Registration Backend
 // Google Apps Script — Code.gs
 // ============================================================
 
@@ -7,7 +7,7 @@
 const SHEET_ID = '1GO4uHOF83s9Xl2TWVgAH-eIbpd3_szKSfMKO8DpN3rM';
 const UPLOAD_FOLDER_ID = '10ESFFQmWYoQYBmvN2eqWvHTrMfUBsuh8';
 
-const EMAIL_FROM_NAME = 'EYEConic 2026 — Annual EyecareFest';
+const EMAIL_FROM_NAME = 'EYECOnic 2026 — Annual EyecareFest';
 const EMAIL_CC = 'eyeconicbysunetra@gmail.com, mukherjeerohit301@gmail.com';  // CC email
 
 // ============================================================
@@ -39,7 +39,7 @@ function doPost(e) {
 
 function doGet(e) {
   return ContentService.createTextOutput(JSON.stringify({
-    success: true, message: 'EYEConic 2026 Registration API is running.'
+    success: true, message: 'EYECOnic 2026 Registration API is running.'
   })).setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -148,7 +148,7 @@ function registerUser(data) {
 // SEND CONFIRMATION EMAIL
 // ============================================================
 function sendConfirmationEmail(data, serialNumber, savedQrUrl, qrBlob) {
-  var subject = 'Registration Confirmation — EYEConic Annual EyecareFest 2026 [' + serialNumber + ']';
+  var subject = 'Registration Confirmation — EYECOnic Annual EyecareFest 2026 [' + serialNumber + ']';
   var inlineBlob = null, attachBlob = null, hasQr = false;
 
   if (qrBlob) {
@@ -161,7 +161,7 @@ function sendConfirmationEmail(data, serialNumber, savedQrUrl, qrBlob) {
 
   var plainBody =
     'Dear ' + data.name + ',\n\n' +
-    'Thank you for registering for EYEConic 2026 — Annual EyecareFest!\n\n' +
+    'Thank you for registering for EYECOnic 2026 — Annual EyecareFest!\n\n' +
     'We are pleased to confirm your registration.\n' +
     //'─────────────────────────────────\n' +
     'Registration ID : ' + serialNumber + '\n' +
@@ -175,7 +175,7 @@ function sendConfirmationEmail(data, serialNumber, savedQrUrl, qrBlob) {
     'We look forward to welcoming you and making this event a memorable experience.\n\n' +
     'Warm regards,\n' +
     'Organizing Committee\n' +
-    'EYEConic 2026 — Annual EyecareFest\n' +
+    'EYECOnic 2026 — Annual EyecareFest\n' +
     'Email: eyeconicbysunetra@gmail.com';
 
   var htmlBody = plainBody.replace(/\n/g, '<br>');
@@ -211,7 +211,7 @@ function sendFailureEmail(error, rawData) {
     MailApp.sendEmail({
       to: 'eyeconicbysunetra@gmail.com',
       name: EMAIL_FROM_NAME,
-      subject: '[EYEConic 2026] Registration Error Alert',
+      subject: '[EYECOnic 2026] Registration Error Alert',
       body: 'Error: ' + error.toString() + '\n\nRaw Data:\n' + rawData
     });
   } catch (e) { console.log('Failure email also failed: ' + e.toString()); }
@@ -318,7 +318,7 @@ function handleContact(data) {
   try {
     MailApp.sendEmail({
       to: 'eyeconicbysunetra@gmail.com',
-      name: 'EYEConic 2026 Website',
+      name: 'EYECOnic 2026 Website',
       subject: 'Contact Form: ' + (data.subject || 'General Inquiry'),
       body: 'Name: ' + data.name + '\nEmail: ' + data.email + '\nPhone: ' + (data.phone || 'N/A') +
         '\nSubject: ' + (data.subject || 'N/A') + '\n\nMessage:\n' + data.message
