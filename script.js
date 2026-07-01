@@ -8,7 +8,7 @@
 
   // ---- Configuration ----
   const CONFIG = {
-    API_URL: 'https://script.google.com/macros/s/AKfycbw0mfAuW3Hgf2okE1BOjkHCu90BPheuW9MkYuUQUVSE9JfXCoGY2irQ-nwgPJ8f44PYIw/exec',   // EYECOnic Apps Script URL
+    API_URL: 'https://script.google.com/macros/s/AKfycbyph0u0VO4Kxqp4RCi7onB-q2Q36FcbPsysv2BM6WDPFd0jVHyYCZUIkgTER9XVnQGozw/exec',   // EYECOnic Apps Script URL
     ANIMATION_THRESHOLD: 0.15,
     TOAST_DURATION: 4000,
     LOADER_DELAY: 600
@@ -24,6 +24,25 @@
     initSmoothScroll();
     initBackToTop();
     initLoader();
+    initDobFormatting();
+  }
+
+  // ============================================================
+  // DOB FORMATTING
+  // ============================================================
+  function initDobFormatting() {
+    const dobInput = document.getElementById('reg-dob');
+    if (!dobInput) return;
+
+    dobInput.addEventListener('input', function (e) {
+      let val = this.value.replace(/\D/g, ''); // Remove all non-digits
+      if (val.length >= 3 && val.length <= 4) {
+        val = val.slice(0, 2) + '/' + val.slice(2);
+      } else if (val.length >= 5) {
+        val = val.slice(0, 2) + '/' + val.slice(2, 4) + '/' + val.slice(4, 8);
+      }
+      this.value = val;
+    });
   }
 
   // ============================================================
@@ -181,8 +200,9 @@
     const pass = document.getElementById('reg-password') ? (document.getElementById('reg-password').value.trim() || 'eyeconic2026') : 'eyeconic2026';
     const food = document.getElementById('reg-food') ? (document.getElementById('reg-food').value || 'Veg') : 'Veg';
     const category = document.getElementById('reg-delegate-type') ? (document.getElementById('reg-delegate-type').value || 'Ophthalmologist') : 'Ophthalmologist';
+    const dob = document.getElementById('reg-dob') ? document.getElementById('reg-dob').value.trim() : '';
 
-    if (!name || !email || !phone) {
+    if (!name || !email || !phone || !dob) {
       return showToast('Please fill all required fields.', 'error');
     }
     if (pass && pass.length < 6) {
@@ -204,6 +224,7 @@
       name: document.getElementById('reg-name').value.trim(),
       email: document.getElementById('reg-email').value.trim(),
       phone: document.getElementById('reg-phone').value.trim(),
+      dob: document.getElementById('reg-dob') ? document.getElementById('reg-dob').value.trim() : '',
       institution: document.getElementById('reg-institution') ? (document.getElementById('reg-institution').value.trim() || 'N/A') : 'N/A',
       city: document.getElementById('reg-city') ? document.getElementById('reg-city').value.trim() : '',
       designation: document.getElementById('reg-designation') ? (document.getElementById('reg-designation').value.trim() || 'Delegate') : 'Delegate',

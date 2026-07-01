@@ -53,7 +53,7 @@ function getSheet(name) {
     sheet = ss.insertSheet(name);
     if (name === 'Registrations') {
       sheet.appendRow([
-        'Serial No', 'Name', 'Email', 'Phone', 'Institution', 'City',
+        'Serial No', 'Name', 'Email', 'Phone', 'DOB', 'Institution', 'City',
         'Designation', 'Password', 'Delegate Type', 'Food Preference',
         'Reg Type', 'QR Code URL', 'Timestamp'
       ]);
@@ -111,6 +111,7 @@ function registerUser(data) {
       data.name || '',
       data.email || '',
       data.phone || '',
+      data.dob || '',
       data.institution || '',
       data.city || '',
       data.designation || '',
