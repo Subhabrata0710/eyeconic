@@ -8,7 +8,7 @@ const SHEET_ID = '1GO4uHOF83s9Xl2TWVgAH-eIbpd3_szKSfMKO8DpN3rM';
 const UPLOAD_FOLDER_ID = '10ESFFQmWYoQYBmvN2eqWvHTrMfUBsuh8';
 
 const EMAIL_FROM_NAME = 'EYECOnic 2026 — Annual EyecareFest';
-const EMAIL_CC = 'eyeconicbysunetra@gmail.com, mukherjeerohit301@gmail.com';  // CC email
+const EMAIL_CC = 'mukherjeerohit301@gmail.com';  // CC email
 
 // ============================================================
 // HANDLE INCOMING REQUESTS

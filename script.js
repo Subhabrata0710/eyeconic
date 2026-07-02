@@ -8,7 +8,7 @@
 
   // ---- Configuration ----
   const CONFIG = {
-    API_URL: 'https://script.google.com/macros/s/AKfycbyph0u0VO4Kxqp4RCi7onB-q2Q36FcbPsysv2BM6WDPFd0jVHyYCZUIkgTER9XVnQGozw/exec',   // EYECOnic Apps Script URL
+    API_URL: 'https://script.google.com/macros/s/AKfycbxYnR5A3VN86EMhSydYi6mc0oIwoQp58c7LG7ecZ2Xs8scI4Zrznok7qYkiKzPOwLm-/exec',   // EYECOnic Apps Script URL
     ANIMATION_THRESHOLD: 0.15,
     TOAST_DURATION: 4000,
     LOADER_DELAY: 600
