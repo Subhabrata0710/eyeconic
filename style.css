@@ -22,6 +22,7 @@
   --color-success: #5fa031;
   --color-error: #e63946;
   --color-info: #0DB5E6;
+  --color-chiefguest: linear-gradient(90deg, #0D6EFD, #0099E6);
   --font-heading: 'Outfit', 'Segoe UI', sans-serif;
   --font-body: 'DM Sans', 'Segoe UI', sans-serif;
   --space-xs: 0.25rem;
@@ -1130,6 +1131,10 @@ select.form-control,
   background: var(--color-teal);
 }
 
+.hi-header-btn.chiefguest {
+  background: var(--color-chiefguest);
+}
+
 .hi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -1157,6 +1162,10 @@ select.form-control,
 
 .hi-card.gold-top {
   border-top: 3px solid var(--color-accent);
+}
+
+.hi-card.chiefguest-top {
+  border-top: 3px solid var(--color-primary-dark);
 }
 
 .hi-name {
@@ -1200,6 +1209,12 @@ select.form-control,
 .hi-card:hover .hi-avatar-placeholder {
   border-color: var(--color-accent);
   color: var(--color-accent);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(230, 92, 0, 0.15);
+}
+
+.hi-card:hover .hi-avatar-placeholder.chief {
+  border-color: var(--color-primary-dark);
+  color: var(--color-primary-dark);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(230, 92, 0, 0.15);
 }
 
