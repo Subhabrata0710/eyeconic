@@ -8,7 +8,7 @@
 
   // ---- Configuration ----
   const CONFIG = {
-    API_URL: 'https://script.google.com/macros/s/AKfycbxYnR5A3VN86EMhSydYi6mc0oIwoQp58c7LG7ecZ2Xs8scI4Zrznok7qYkiKzPOwLm-/exec',   // EYECOnic Apps Script URL
+    API_URL: 'https://script.google.com/macros/s/AKfycbxNhlc-AEABXJUREGXCWYHe7wvNHwnblXFqVXqbZfdp0shMpM27v3JA1ncYkfnoTDF2/exec',   // EYECOnic Apps Script URL
     ANIMATION_THRESHOLD: 0.15,
     TOAST_DURATION: 4000,
     LOADER_DELAY: 600
@@ -195,22 +195,29 @@
     const name = document.getElementById('reg-name').value.trim();
     const email = document.getElementById('reg-email').value.trim();
     const phone = document.getElementById('reg-phone').value.trim();
-    const institution = document.getElementById('reg-institution') ? (document.getElementById('reg-institution').value.trim() || 'N/A') : 'N/A';
-    const city = document.getElementById('reg-city') ? document.getElementById('reg-city').value.trim() : '';
-    const designation = document.getElementById('reg-designation') ? (document.getElementById('reg-designation').value.trim() || 'Delegate') : 'Delegate';
-    const pass = document.getElementById('reg-password') ? (document.getElementById('reg-password').value.trim() || 'eyeconic2026') : 'eyeconic2026';
-    const food = document.getElementById('reg-food') ? (document.getElementById('reg-food').value || 'Veg') : 'Veg';
-    const category = document.getElementById('reg-delegate-type') ? (document.getElementById('reg-delegate-type').value || 'Ophthalmologist') : 'Ophthalmologist';
     const dob = document.getElementById('reg-dob') ? document.getElementById('reg-dob').value.trim() : '';
+    const category = document.getElementById('reg-delegate-type') ? document.getElementById('reg-delegate-type').value : '';
 
     if (!name || !email || !phone || !dob) {
       return showToast('Please fill all required fields.', 'error');
     }
-    if (pass && pass.length < 6) {
-      return showToast('Password must be at least 6 characters.', 'error');
+    if (!category) {
+      return showToast('Please select a Delegate Category.', 'error');
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return showToast('Please enter a valid email address.', 'error');
+    }
+
+    // Conditional field validation
+    if (category === 'Ophthalmologist') {
+      const clinic = document.getElementById('reg-clinic') ? document.getElementById('reg-clinic').value.trim() : '';
+      if (!clinic) return showToast('Please enter your Clinic / Institute Name.', 'error');
+    }
+    if (category === 'Resident/Trainee (Ophthalmology)') {
+      const institute = document.getElementById('reg-institute') ? document.getElementById('reg-institute').value.trim() : '';
+      const hod = document.getElementById('reg-hod') ? document.getElementById('reg-hod').value.trim() : '';
+      if (!institute) return showToast('Please enter your Institute Name.', 'error');
+      if (!hod) return showToast('Please enter your HOD Name.', 'error');
     }
 
     registerBackend(category);
@@ -220,18 +227,29 @@
     const btn = document.getElementById('reg-submit-btn');
     if (btn) { btn.disabled = true; btn.textContent = 'Registering...'; }
 
+    const category = document.getElementById('reg-delegate-type') ? document.getElementById('reg-delegate-type').value : '';
+    const clinic = document.getElementById('reg-clinic') ? document.getElementById('reg-clinic').value.trim() : '';
+    const institute = document.getElementById('reg-institute') ? document.getElementById('reg-institute').value.trim() : '';
+    const hod = document.getElementById('reg-hod') ? document.getElementById('reg-hod').value.trim() : '';
+
+    // Build institution/extra info string based on category
+    let institutionValue = 'N/A';
+    if (category === 'Ophthalmologist' && clinic) institutionValue = clinic;
+    if (category === 'Resident/Trainee (Ophthalmology)' && institute) institutionValue = institute;
+
     const data = {
       action: 'register',
       name: document.getElementById('reg-name').value.trim(),
       email: document.getElementById('reg-email').value.trim(),
       phone: document.getElementById('reg-phone').value.trim(),
       dob: document.getElementById('reg-dob') ? document.getElementById('reg-dob').value.trim() : '',
-      institution: document.getElementById('reg-institution') ? (document.getElementById('reg-institution').value.trim() || 'N/A') : 'N/A',
+      institution: institutionValue,
+      hod: hod,
       city: document.getElementById('reg-city') ? document.getElementById('reg-city').value.trim() : '',
-      designation: document.getElementById('reg-designation') ? (document.getElementById('reg-designation').value.trim() || 'Delegate') : 'Delegate',
-      password: document.getElementById('reg-password') ? (document.getElementById('reg-password').value.trim() || 'eyeconic2026') : 'eyeconic2026',
-      delegateType: document.getElementById('reg-delegate-type') ? (document.getElementById('reg-delegate-type').value || 'Ophthalmologist') : 'Ophthalmologist',
-      foodPreference: document.getElementById('reg-food') ? (document.getElementById('reg-food').value || 'Veg') : 'Veg',
+      designation: 'Delegate',
+      password: 'eyeconic2026',
+      delegateType: category,
+      foodPreference: 'Veg',
       hasGala: false,
       regType: regType,
       amount: 0,

@@ -78,11 +78,30 @@
 
         <div class="form-divider"></div>
 
-        <div class="form-group" style="display: none;">
-          <label for="reg-delegate-type">Delegate Category</label>
-          <select id="reg-delegate-type" class="form-select" disabled>
-            <option value="Ophthalmologist" selected>Ophthalmologist</option>
+        <div class="form-group">
+          <label for="reg-delegate-type">Delegate Category *</label>
+          <select id="reg-delegate-type" class="form-select" required onchange="handleDelegateTypeChange(this.value)">
+            <option value="" disabled selected>-- Select Category --</option>
+            <option value="Ophthalmologist">Ophthalmologist</option>
+            <option value="Resident/Trainee (Ophthalmology)">Resident/Trainee (Ophthalmology)</option>
+            <option value="Other">Other</option>
           </select>
+        </div>
+
+        <!-- Conditional: Ophthalmologist → Clinic/Institute -->
+        <div class="form-group" id="field-clinic" style="display:none;">
+          <label for="reg-clinic">Clinic / Institute Name *</label>
+          <input id="reg-clinic" class="form-control" placeholder="Enter your clinic or institute name">
+        </div>
+
+        <!-- Conditional: Resident/Trainee → Institute + HOD -->
+        <div class="form-group" id="field-institute" style="display:none;">
+          <label for="reg-institute">Institute Name *</label>
+          <input id="reg-institute" class="form-control" placeholder="Enter your institute name">
+        </div>
+        <div class="form-group" id="field-hod" style="display:none;">
+          <label for="reg-hod">HOD Name *</label>
+          <input id="reg-hod" class="form-control" placeholder="Enter your HOD's full name">
         </div>
 
         <div class="form-group" style="display: none;">
@@ -138,6 +157,30 @@
   <div id="footer-placeholder"></div>
   <button class="back-to-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
+  <script>
+    function handleDelegateTypeChange(val) {
+      var fieldClinic = document.getElementById('field-clinic');
+      var fieldInstitute = document.getElementById('field-institute');
+      var fieldHod = document.getElementById('field-hod');
+
+      // Hide all conditional fields first
+      fieldClinic.style.display = 'none';
+      fieldInstitute.style.display = 'none';
+      fieldHod.style.display = 'none';
+
+      // Clear values when hidden
+      document.getElementById('reg-clinic').value = '';
+      document.getElementById('reg-institute').value = '';
+      document.getElementById('reg-hod').value = '';
+
+      if (val === 'Ophthalmologist') {
+        fieldClinic.style.display = 'block';
+      } else if (val === 'Resident/Trainee (Ophthalmology)') {
+        fieldInstitute.style.display = 'block';
+        fieldHod.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 
 </html>

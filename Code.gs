@@ -53,7 +53,7 @@ function getSheet(name) {
     sheet = ss.insertSheet(name);
     if (name === 'Registrations') {
       sheet.appendRow([
-        'Serial No', 'Name', 'Email', 'Phone', 'DOB', 'Institution', 'City',
+        'Serial No', 'Name', 'Email', 'Phone', 'DOB', 'Institution', 'HOD', 'City',
         'Designation', 'Password', 'Delegate Type', 'Food Preference',
         'Reg Type', 'QR Code URL', 'Timestamp'
       ]);
@@ -105,7 +105,7 @@ function registerUser(data) {
       console.log('QR save failed: ' + qrErr.toString());
     }
 
-    // Append row (no amount/payment columns)
+    // Append row
     sheet.appendRow([
       serialNumber,
       data.name || '',
@@ -113,6 +113,7 @@ function registerUser(data) {
       data.phone || '',
       data.dob || '',
       data.institution || '',
+      data.hod || '',
       data.city || '',
       data.designation || '',
       data.password || '',
@@ -125,7 +126,7 @@ function registerUser(data) {
 
     // Send confirmation email
     try {
-      sendConfirmationEmail(data, serialNumber, savedQrUrl, globalQrBlob);
+      sendConfirmationEmail(data, serialNumber);
     } catch (emailErr) {
       console.log('Email failed but registration saved: ' + emailErr.toString());
     }
@@ -148,31 +149,35 @@ function registerUser(data) {
 // ============================================================
 // SEND CONFIRMATION EMAIL
 // ============================================================
-function sendConfirmationEmail(data, serialNumber, savedQrUrl, qrBlob) {
-  var subject = 'Registration Confirmation — EYECOnic Annual EyecareFest 2026 [' + serialNumber + ']';
-  var inlineBlob = null, attachBlob = null, hasQr = false;
+function sendConfirmationEmail(data, serialNumber) {
+  var subject = 'Registration Received — EYECOnic Annual EyecareFest 2026 [' + serialNumber + ']';
 
-  if (qrBlob) {
-    try {
-      inlineBlob = qrBlob.copyBlob().setName('qrCode.png');
-      attachBlob = qrBlob.copyBlob().setName('EYEConic_QR_' + serialNumber + '.png');
-      hasQr = true;
-    } catch (e) { console.log('QR blob copy failed: ' + e.toString()); }
+  var institutionLine = '';
+  if (data.institution && data.institution !== 'N/A') {
+    if (data.delegateType === 'Ophthalmologist') {
+      institutionLine = 'Clinic / Institute : ' + data.institution + '\n';
+    } else {
+      institutionLine = 'Institute          : ' + data.institution + '\n';
+    }
+  }
+  var hodLine = '';
+  if (data.hod) {
+    hodLine = 'HOD                : ' + data.hod + '\n';
   }
 
   var plainBody =
     'Dear ' + data.name + ',\n\n' +
-    'Thank you for registering for EYECOnic 2026 — Annual EyecareFest!\n\n' +
-    'We are pleased to confirm your registration.\n' +
-    //'─────────────────────────────────\n' +
-    'Registration ID : ' + serialNumber + '\n' +
-    //'Category        : ' + (data.regType || data.delegateType || '') + '\n' +
-    //'─────────────────────────────────\n\n' +
-    (hasQr ? 'Kindly present the attached QR code at the registration desk upon arrival at the venue.\n\n' : '') +
-    'Event Details:\n' +
-    'Date : Sunday, 26 July 2026\n' +
-    'Venue      : Fairfield by Marriott, New Town, Kolkata\n' +
-    //'Website    : www.eyeconic.com\n\n' +
+    'Thank you for your interest in EYECOnic 2026 — Annual EyecareFest!\n\n' +
+    'We have received your registration request.\n' +
+    'Please note that your registration is PROVISIONAL and subject to confirmation by the organising committee.\n' +
+    'You will receive a separate confirmation once your registration has been approved.\n\n' +
+    'Reference ID   : ' + serialNumber + '\n' +
+    'Category       : ' + (data.delegateType || '') + '\n' +
+    institutionLine +
+    hodLine +
+    '\nEvent Details:\n' +
+    'Date  : Sunday, 26 July 2026\n' +
+    'Venue : Fairfield by Marriott, New Town, Kolkata\n\n' +
     'We look forward to welcoming you and making this event a memorable experience.\n\n' +
     'Warm regards,\n' +
     'Organizing Committee\n' +
@@ -180,11 +185,6 @@ function sendConfirmationEmail(data, serialNumber, savedQrUrl, qrBlob) {
     'Email: eyeconicbysunetra@gmail.com';
 
   var htmlBody = plainBody.replace(/\n/g, '<br>');
-  if (hasQr) {
-    htmlBody += '<br><br><b>Your Event QR Code (Reg ID):</b><br>' +
-      '<img src="cid:qrCode" alt="Event QR Code" style="width:200px;height:200px;border:1px solid #ccc;"/>' +
-      '<br><small>QR code also attached.</small>';
-  }
 
   var emailOptions = {
     to: data.email,
@@ -193,11 +193,6 @@ function sendConfirmationEmail(data, serialNumber, savedQrUrl, qrBlob) {
     body: plainBody,
     htmlBody: htmlBody
   };
-
-  if (hasQr) {
-    emailOptions.inlineImages = { qrCode: inlineBlob };
-    emailOptions.attachments = [attachBlob];
-  }
 
   if (EMAIL_CC && EMAIL_CC.length > 0) emailOptions.cc = EMAIL_CC;
 
