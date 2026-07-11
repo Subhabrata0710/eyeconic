@@ -189,6 +189,95 @@
   };
 
   // ============================================================
+  // SUCCESS MODAL
+  // ============================================================
+  window.showSuccessModal = function (message) {
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0,0,0,0.6)';
+    overlay.style.zIndex = '9999';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.3s ease';
+
+    const modal = document.createElement('div');
+    modal.style.background = '#fff';
+    modal.style.padding = '30px';
+    modal.style.borderRadius = '12px';
+    modal.style.maxWidth = '450px';
+    modal.style.textAlign = 'center';
+    modal.style.position = 'relative';
+    modal.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+    modal.style.transform = 'scale(0.8)';
+    modal.style.transition = 'transform 0.3s ease';
+
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '&times;';
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '10px';
+    closeBtn.style.right = '15px';
+    closeBtn.style.background = 'transparent';
+    closeBtn.style.border = 'none';
+    closeBtn.style.fontSize = '24px';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.color = '#888';
+
+    const icon = document.createElement('div');
+    icon.innerHTML = '✅';
+    icon.style.fontSize = '48px';
+    icon.style.marginBottom = '15px';
+
+    const text = document.createElement('p');
+    text.textContent = message;
+    text.style.margin = '0';
+    text.style.fontSize = '1.1rem';
+    text.style.color = '#333';
+    text.style.lineHeight = '1.5';
+    text.style.fontWeight = '500';
+
+    modal.appendChild(closeBtn);
+    modal.appendChild(icon);
+    modal.appendChild(text);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+      overlay.style.opacity = '1';
+      modal.style.transform = 'scale(1)';
+    });
+
+    let isClosed = false;
+    function closeModal() {
+      if (isClosed) return;
+      isClosed = true;
+      overlay.style.opacity = '0';
+      modal.style.transform = 'scale(0.8)';
+      setTimeout(() => {
+        if (document.body.contains(overlay)) {
+          document.body.removeChild(overlay);
+        }
+        window.location.href = 'login.html';
+      }, 300);
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    setTimeout(() => {
+      closeModal();
+    }, 5000);
+  };
+
+  // ============================================================
   // REGISTRATION — DIRECT (No Payment)
   // ============================================================
   window.submitRegistration = function () {
@@ -265,8 +354,7 @@
         .then(function (result) {
           if (btn) { btn.disabled = false; btn.textContent = 'Register'; }
           if (result.success) {
-            showToast('Registration Successful! Check your email for confirmation.', 'success');
-            setTimeout(function () { window.location.href = 'login.html'; }, 2000);
+            showSuccessModal('Thank you for showing interest in EYECOnic 2026. You will receive an acknowledgement email at your registered email address shortly.');
           } else {
             showToast('Error: ' + (result.message || 'Registration failed'), 'error');
           }
