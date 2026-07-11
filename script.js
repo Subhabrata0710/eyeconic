@@ -8,7 +8,7 @@
 
   // ---- Configuration ----
   const CONFIG = {
-    API_URL: 'https://script.google.com/macros/s/AKfycbxNhlc-AEABXJUREGXCWYHe7wvNHwnblXFqVXqbZfdp0shMpM27v3JA1ncYkfnoTDF2/exec',   // EYECOnic Apps Script URL
+    API_URL: 'https://script.google.com/macros/s/AKfycbyzryaJxpSqAHYJxC_UR2ky9SkLey-TCvDCR582yUeb1ZnC6w02yxdzEzE2tyXgB_6p/exec',   // EYECOnic Apps Script URL
     ANIMATION_THRESHOLD: 0.15,
     TOAST_DURATION: 4000,
     LOADER_DELAY: 600
@@ -354,7 +354,7 @@
         .then(function (result) {
           if (btn) { btn.disabled = false; btn.textContent = 'Register'; }
           if (result.success) {
-            showSuccessModal('Thank you for showing interest in EYECOnic 2026. You will receive an acknowledgement email at your registered email address shortly.');
+            showSuccessModal('Thank you for showing interest in EYECOnic 2026. You will receive an confirmation email at your registered email address.');
           } else {
             showToast('Error: ' + (result.message || 'Registration failed'), 'error');
           }

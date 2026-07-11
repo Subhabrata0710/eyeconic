@@ -196,7 +196,7 @@ function sendConfirmationEmail(data, serialNumber) {
 
   if (EMAIL_CC && EMAIL_CC.length > 0) emailOptions.cc = EMAIL_CC;
 
-  MailApp.sendEmail(emailOptions);
+  //MailApp.sendEmail(emailOptions);
 }
 
 // ============================================================
