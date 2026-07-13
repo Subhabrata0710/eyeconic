@@ -72,19 +72,56 @@ function registerUser(data) {
   const lock = LockService.getScriptLock();
   try {
     lock.waitLock(30000);
-    const sheet = getSheet('Registrations');
-    const allData = sheet.getDataRange().getValues();
 
-    // Duplicate check (email = column C, index 2)
-    for (var i = 1; i < allData.length; i++) {
-      if (allData[i][2] === data.email) {
-        return { success: false, message: 'This email is already registered!' };
-      }
+    const sheet    = getSheet('Registrations');
+    const ss       = SpreadsheetApp.openById(SHEET_ID);
+    const oldSheet = ss.getSheetByName('Old Registrations');
+
+    // Collect all rows from both sheets for duplicate checking
+    const newData = sheet.getDataRange().getValues();
+    const oldData = oldSheet ? oldSheet.getDataRange().getValues() : [];
+
+    // Helper: normalize phone (strip spaces, dashes, +91 prefix for comparison)
+    function normalizePhone(p) {
+      if (!p) return '';
+      var s = String(p).replace(/[\s\-().+]/g, '');
+      if (s.startsWith('91') && s.length > 10) s = s.slice(2);
+      return s;
     }
 
-    // Serial number — EYC prefix
-    var rowNum = allData.length;
-    var serialNumber = 'EYC-' + (1000 + rowNum);
+    const incomingPhone = normalizePhone(data.phone);
+
+    // Check duplicates across BOTH sheets
+    // Columns (0-indexed): 0=SerialNo, 2=Email, 3=Phone
+    function checkSheet(rows, sheetLabel) {
+      for (var i = 1; i < rows.length; i++) {
+        var rowEmail = String(rows[i][2] || '').trim().toLowerCase();
+        var rowPhone = normalizePhone(rows[i][3]);
+        if (rowEmail === data.email.trim().toLowerCase()) {
+          return 'This email is already registered!';
+        }
+        if (incomingPhone && rowPhone && rowPhone === incomingPhone) {
+          return 'This phone number is already registered!';
+        }
+      }
+      return null;
+    }
+
+    var dupError = checkSheet(newData, 'Registrations') || checkSheet(oldData, 'Old Registrations');
+    if (dupError) return { success: false, message: dupError };
+
+    // Serial number — start from EYC-1424, increment by rows already in Registrations sheet
+    // newData.length includes header row, so rows of data = newData.length - 1
+    var dataRowCount = newData.length - 1; // number of existing data rows (excluding header)
+    var serialNumber = 'EYC-' + (1424 + dataRowCount);
+
+    // Ensure serial number is unique across both sheets (collision guard)
+    var allSerials = [];
+    for (var r = 1; r < newData.length; r++) allSerials.push(String(newData[r][0]));
+    for (var r = 1; r < oldData.length; r++) allSerials.push(String(oldData[r][0]));
+    var base = 1424 + dataRowCount;
+    while (allSerials.indexOf('EYC-' + base) !== -1) { base++; }
+    serialNumber = 'EYC-' + base;
 
     // QR Code — ONLY contains Reg ID
     var qrText = 'Reg ID: ' + serialNumber;
