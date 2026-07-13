@@ -263,7 +263,7 @@
         if (document.body.contains(overlay)) {
           document.body.removeChild(overlay);
         }
-        window.location.href = 'login.html';
+        window.location.href = 'register.html';
       }, 300);
     }
 
