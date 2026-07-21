@@ -2,67 +2,68 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Foresters Registration | EYECOnic 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Register as Foresters for EYECOnic 2026.">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Foresters Registration | EYECOnic 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register as Foresters for EYECOnic 2026.">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div id="nav-placeholder"></div>
+    <div id="nav-placeholder"></div>
 
-  <!-- PAGE BANNER -->
-  <section class="page-header">
-    <div class="container">
-      <h1>Foresters Registration</h1>
-      <div class="divider"></div>
-      <p>Secure your spot at EYECOnic 2026</p>
-    </div>
-  </section>
-
-  <!-- REGISTRATION FORM SECTION -->
-  <section class="section">
-    <div class="container">
-
-      <!-- REGISTRATION FORM -->
-      <div class="register-card animate-on-scroll" id="register-form">
-        <h3 class="text-center">Foresters Registration Form</h3>
-        <p class="form-desc text-center">Please fill in your details to complete registration.</p>
-
-        <div class="form-group-row">
-          <div class="form-group">
-            <label for="reg-name">Name in full *</label>
-            <input id="reg-name" class="form-control" placeholder="Full Name" required>
-          </div>
+    <!-- PAGE BANNER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Foresters Registration</h1>
+            <div class="divider"></div>
+            <p>Secure your spot at EYECOnic 2026</p>
         </div>
+    </section>
 
-        <div class="form-group-row">
-          <div class="form-group">
-            <label for="reg-email">Email Address *</label>
-            <input id="reg-email" type="email" class="form-control" placeholder="your@email.com" required>
-          </div>
-          <div class="form-group">
-            <label for="reg-phone">Phone Number (whatsapp) *</label>
-            <input id="reg-phone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
-          </div>
-        </div>
+    <!-- REGISTRATION FORM SECTION -->
+    <section class="section">
+        <div class="container">
 
-        <div class="form-group-row">
-          <div class="form-group">
-            <label for="reg-city">City</label>
-            <input id="reg-city" class="form-control" placeholder="City">
-          </div>
-          <div class="form-group">
-            <label for="reg-dob">DOB (Date of Birth) *</label>
-            <input id="reg-dob" type="text" class="form-control" placeholder="DD/MM/YYYY" maxlength="10" required>
-          </div>
-        </div>
+            <!-- REGISTRATION FORM -->
+            <div class="register-card animate-on-scroll" id="register-form">
+                <h3 class="text-center">Registration Form</h3>
+                <p class="form-desc text-center">Please fill in your details to complete registration.</p>
 
-        <div class="form-divider"></div>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="reg-name">Name in full *</label>
+                        <input id="reg-name" class="form-control" placeholder="Full Name" required>
+                    </div>
+                </div>
 
-        <!--
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="reg-email">Email Address *</label>
+                        <input id="reg-email" type="email" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-phone">Phone Number (whatsapp) *</label>
+                        <input id="reg-phone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="reg-city">City</label>
+                        <input id="reg-city" class="form-control" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-dob">DOB (Date of Birth) *</label>
+                        <input id="reg-dob" type="text" class="form-control" placeholder="DD/MM/YYYY" maxlength="10"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-divider"></div>
+
+                <!--
         <div class="form-group">
           <label for="reg-delegate-type">Delegate Category *</label>
           <select id="reg-delegate-type" class="form-select" required onchange="handleDelegateTypeChange(this.value)">
@@ -74,116 +75,116 @@
         </div>
         -->
 
-        <div class="form-group" id="field-oswb">
-          <label for="reg-oswb">OSWB Membership Number *</label>
-          <input id="reg-oswb" class="form-control" placeholder="Enter OSWB Membership Number" required>
+                <div class="form-group" id="field-oswb">
+                    <label for="reg-oswb">OSWB Membership Number *</label>
+                    <input id="reg-oswb" class="form-control" placeholder="Enter OSWB Membership Number" required>
+                </div>
+
+                <button class="btn btn-primary w-100" id="reg-submit-btn" onclick="submitForesterRegistration()"
+                    style="padding:18px;width:100%;margin-top:1.5rem;">
+                    Register
+                </button>
+
+            </div>
         </div>
+    </section>
 
-        <button class="btn btn-primary w-100" id="reg-submit-btn" onclick="submitForesterRegistration()"
-          style="padding:18px;width:100%;margin-top:1.5rem;">
-          Register
-        </button>
+    <style>
+        .form-group-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
 
-      </div>
-    </div>
-  </section>
+        .form-group-row .form-group {
+            flex: 1;
+        }
 
-  <style>
-    .form-group-row {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 15px;
-    }
+        .form-divider {
+            height: 1px;
+            background: var(--color-border);
+            margin: 25px 0;
+        }
 
-    .form-group-row .form-group {
-      flex: 1;
-    }
+        .register-card {
+            max-width: 750px;
+            margin: 0 auto;
+        }
 
-    .form-divider {
-      height: 1px;
-      background: var(--color-border);
-      margin: 25px 0;
-    }
-
-    .register-card {
-      max-width: 750px;
-      margin: 0 auto;
-    }
-
-    @media(max-width:768px) {
-      .form-group-row {
-        flex-direction: column;
-        gap: 15px;
-      }
-    }
-  </style>
-
-  <div id="footer-placeholder"></div>
-  <button class="back-to-top" aria-label="Back to top">↑</button>
-  <script src="script.js"></script>
-  <script>
-    function submitForesterRegistration() {
-      const name = document.getElementById('reg-name').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
-      const phone = document.getElementById('reg-phone').value.trim();
-      const dob = document.getElementById('reg-dob') ? document.getElementById('reg-dob').value.trim() : '';
-      const city = document.getElementById('reg-city') ? document.getElementById('reg-city').value.trim() : '';
-      const oswb = document.getElementById('reg-oswb').value.trim();
-
-      if (!name || !email || !phone || !dob || !oswb) {
-        return window.showToast ? window.showToast('Please fill all required fields.', 'error') : alert('Please fill all required fields.');
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return window.showToast ? window.showToast('Please enter a valid email address.', 'error') : alert('Please enter a valid email address.');
-      }
-
-      const btn = document.getElementById('reg-submit-btn');
-      if (btn) { btn.disabled = true; btn.textContent = 'Registering...'; }
-
-      const data = {
-        action: 'registerForester',
-        name: name,
-        email: email,
-        phone: phone,
-        dob: dob,
-        city: city,
-        oswb: oswb
-      };
-
-      const sendRequest = function (retryCount) {
-        fetch(window.EYECONIC_CONFIG ? window.EYECONIC_CONFIG.API_URL : 'https://script.google.com/macros/s/AKfycbwoV0PfUk1zxbM1-UlgD5jXisYzARRucbQfy0gHIArESEDJdJAeud9JF7poaYF73Tb4OA/exec', { 
-          method: 'POST', 
-          body: JSON.stringify(data) 
-        })
-          .then(function (res) {
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.json();
-          })
-          .then(function (result) {
-            if (btn) { btn.disabled = false; btn.textContent = 'Register'; }
-            if (result.success) {
-              if (window.showSuccessModal) {
-                window.showSuccessModal('Thank you! Your Foresters registration is successful.');
-              } else {
-                alert('Registration successful!');
-                window.location.href = 'index.html';
-              }
-            } else {
-              window.showToast ? window.showToast('Error: ' + (result.message || 'Registration failed'), 'error') : alert('Error: ' + (result.message || 'Registration failed'));
+        @media(max-width:768px) {
+            .form-group-row {
+                flex-direction: column;
+                gap: 15px;
             }
-          })
-          .catch(function (error) {
-            if (retryCount < 1) {
-              setTimeout(function () { sendRequest(retryCount + 1); }, 2000);
-            } else {
-              if (btn) { btn.disabled = false; btn.textContent = 'Register'; }
-              window.showToast ? window.showToast('Server Error. Please try again.', 'error') : alert('Server Error. Please try again.');
+        }
+    </style>
+
+    <div id="footer-placeholder"></div>
+    <button class="back-to-top" aria-label="Back to top">↑</button>
+    <script src="script.js"></script>
+    <script>
+        function submitForesterRegistration() {
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const dob = document.getElementById('reg-dob') ? document.getElementById('reg-dob').value.trim() : '';
+            const city = document.getElementById('reg-city') ? document.getElementById('reg-city').value.trim() : '';
+            const oswb = document.getElementById('reg-oswb').value.trim();
+
+            if (!name || !email || !phone || !dob || !oswb) {
+                return window.showToast ? window.showToast('Please fill all required fields.', 'error') : alert('Please fill all required fields.');
             }
-          });
-      };
-      sendRequest(0);
-    }
-  </script>
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                return window.showToast ? window.showToast('Please enter a valid email address.', 'error') : alert('Please enter a valid email address.');
+            }
+
+            const btn = document.getElementById('reg-submit-btn');
+            if (btn) { btn.disabled = true; btn.textContent = 'Registering...'; }
+
+            const data = {
+                action: 'registerForester',
+                name: name,
+                email: email,
+                phone: phone,
+                dob: dob,
+                city: city,
+                oswb: oswb
+            };
+
+            const sendRequest = function (retryCount) {
+                fetch(window.EYECONIC_CONFIG ? window.EYECONIC_CONFIG.API_URL : 'https://script.google.com/macros/s/AKfycbwoV0PfUk1zxbM1-UlgD5jXisYzARRucbQfy0gHIArESEDJdJAeud9JF7poaYF73Tb4OA/exec', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                })
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        return res.json();
+                    })
+                    .then(function (result) {
+                        if (btn) { btn.disabled = false; btn.textContent = 'Register'; }
+                        if (result.success) {
+                            if (window.showSuccessModal) {
+                                window.showSuccessModal('Thank you! Your Foresters registration is successful.');
+                            } else {
+                                alert('Registration successful!');
+                                window.location.href = 'index.html';
+                            }
+                        } else {
+                            window.showToast ? window.showToast('Error: ' + (result.message || 'Registration failed'), 'error') : alert('Error: ' + (result.message || 'Registration failed'));
+                        }
+                    })
+                    .catch(function (error) {
+                        if (retryCount < 1) {
+                            setTimeout(function () { sendRequest(retryCount + 1); }, 2000);
+                        } else {
+                            if (btn) { btn.disabled = false; btn.textContent = 'Register'; }
+                            window.showToast ? window.showToast('Server Error. Please try again.', 'error') : alert('Server Error. Please try again.');
+                        }
+                    });
+            };
+            sendRequest(0);
+        }
+    </script>
 </body>
 
 </html>
