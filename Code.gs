@@ -20,6 +20,7 @@ function doPost(e) {
     let response = {};
 
     if (data.action === 'register') response = registerUser(data);
+    else if (data.action === 'registerForester') response = registerForester(data);
     else if (data.action === 'login') response = loginUser(data);
     else if (data.action === 'upload') response = uploadFile(data);
     else if (data.action === 'getFiles') response = getUserFiles(data);
@@ -56,6 +57,12 @@ function getSheet(name) {
         'Serial No', 'Name', 'Email', 'Phone', 'DOB', 'Institution', 'HOD', 'City',
         'Designation', 'Password', 'Delegate Type', 'Food Preference',
         'Reg Type', 'QR Code URL', 'Timestamp'
+      ]);
+      sheet.setFrozenRows(1);
+    } else if (name === 'Foresters') {
+      sheet.appendRow([
+        'Serial No', 'Name', 'Email', 'Phone', 'DOB', 'OSWB Membership Number', 'City',
+        'Timestamp'
       ]);
       sheet.setFrozenRows(1);
     }
@@ -176,6 +183,72 @@ function registerUser(data) {
 
   } catch (e) {
     console.log('Registration error: ' + e.toString());
+    sendFailureEmail(e, JSON.stringify(data));
+    return { success: false, message: 'Registration failed: ' + e.toString() };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// ============================================================
+// REGISTER FORESTER
+// ============================================================
+function registerForester(data) {
+  if (!data || !data.email) return { success: false, message: 'No registration data provided.' };
+
+  const lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(30000);
+
+    const sheet    = getSheet('Foresters');
+    const newData = sheet.getDataRange().getValues();
+
+    function normalizePhone(p) {
+      if (!p) return '';
+      var s = String(p).replace(/[\s\-().+]/g, '');
+      if (s.startsWith('91') && s.length > 10) s = s.slice(2);
+      return s;
+    }
+    const incomingPhone = normalizePhone(data.phone);
+
+    for (var i = 1; i < newData.length; i++) {
+      var rowEmail = String(newData[i][2] || '').trim().toLowerCase();
+      var rowPhone = normalizePhone(newData[i][3]);
+      if (rowEmail === data.email.trim().toLowerCase()) {
+        return { success: false, message: 'This email is already registered!' };
+      }
+      if (incomingPhone && rowPhone && rowPhone === incomingPhone) {
+        return { success: false, message: 'This phone number is already registered!' };
+      }
+    }
+
+    var dataRowCount = newData.length - 1;
+    var serialNumber = 'FOR-' + (100 + dataRowCount);
+    var allSerials = [];
+    for (var r = 1; r < newData.length; r++) allSerials.push(String(newData[r][0]));
+    var base = 100 + dataRowCount;
+    while (allSerials.indexOf('FOR-' + base) !== -1) { base++; }
+    serialNumber = 'FOR-' + base;
+
+    sheet.appendRow([
+      serialNumber,
+      data.name || '',
+      data.email || '',
+      data.phone || '',
+      data.dob || '',
+      data.oswb || '',
+      data.city || '',
+      new Date()
+    ]);
+
+    return {
+      success: true,
+      message: 'Registration successful! Your ID: ' + serialNumber + '.',
+      serialNumber: serialNumber
+    };
+
+  } catch (e) {
+    console.log('Forester Registration error: ' + e.toString());
     sendFailureEmail(e, JSON.stringify(data));
     return { success: false, message: 'Registration failed: ' + e.toString() };
   } finally {
